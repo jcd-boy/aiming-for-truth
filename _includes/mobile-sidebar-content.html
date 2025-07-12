@@ -1,0 +1,50 @@
+{%- comment -%}
+  A dynamic, reusable sidebar content file for MOBILE.
+  It expects `include.section` to be the name of a collection.
+{%- endcomment -%}
+{%- assign section_name = include.section -%}
+{%- assign collection = site[section_name] -%}
+
+{%- if collection -%} 
+  <div class="mobile-sidebar-content">
+    <h4>{{ section_name | replace: '-', ' ' | capitalize }}</h4>
+    
+    <ul class="mobile-sidebar-nav">
+      
+      
+      {%- assign intro_page = collection | where_exp: "item", "item.category == nil" | first -%}
+      {%- if intro_page -%}
+        <li class="mobile-sidebar-intro">
+          <a href="{{ intro_page.url | relative_url }}"
+             {% if page.url == intro_page.url %}class="active"{% endif %}>
+            <strong>{{ intro_page.title }}</strong>
+          </a>
+        </li>
+      {%- endif -%}
+      
+      
+      {%- assign categorized_pages = collection | where_exp: "item", "item.category != nil" -%}
+      {%- assign grouped_pages = categorized_pages | group_by: "category" | sort: "items[0].category_order" -%}
+      
+      {%- for group in grouped_pages -%}
+        <li class="mobile-sidebar-group">
+          <h5>{{ group.name | replace: '-', ' ' | capitalize }}</h5>
+          <ul>
+            
+            {%- assign items_in_group = group.items | sort: "order" -%}
+            {%- for item in items_in_group -%}
+              <li>
+                <a href="{{ item.url | relative_url }}"
+                   {% if page.url == item.url %}class="active"{% endif %}>
+                  {{ item.title }}
+                </a>
+              </li>
+            {%- endfor -%}
+          </ul>
+        </li>
+      {%- endfor -%}
+
+    </ul>
+  </div>
+{%- endif -%}
+

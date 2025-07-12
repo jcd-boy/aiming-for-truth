@@ -1,0 +1,67 @@
+{%- comment -%}
+  A dynamic, reusable sidebar.
+  It expects `include.section` to be the name of a collection (e.g., "guide", "articles").
+{%- endcomment -%}
+{%- assign section_name = include.section -%}
+{%- assign collection = site[section_name] -%}
+
+<aside id="sidebar" class="sidebar">
+
+  {%- if collection -%}
+    {%- if section_name == "guide" -%}
+      <h3 class="sidebar-title">The Thinking Guide</h3>
+    {%- endif -%}
+    {%- if section_name == "casestudies" -%}
+      <h3 class="sidebar-title">Selected Case Studies</h3>
+    {%- endif -%}
+    {%- if section_name == "articles" -%}
+      <h3 class="sidebar-title">Collected Articles</h3>
+    {%- endif -%}
+
+    {%- if include.intro -%}
+      <p class="sidebar-intro">{{ include.intro }}</p>
+    {%- endif -%}
+    
+    
+    <ul class="sidebar-nav">
+      
+      
+      {%- assign intro_page = collection | where_exp: "item", "item.category == nil" | first -%}
+      {%- if intro_page -%}
+        <li class="sidebar-group">
+          <h4>Introduction</h4>
+          <a href="{{ intro_page.url | relative_url }}"
+             {% if page.url == intro_page.url %}class="active"{% endif %}>
+            {{ intro_page.title }}
+          </a>
+        </li>
+      {%- endif -%}
+      
+      
+      {%- assign categorized_pages = collection | where_exp: "item", "item.category != nil" -%}
+      {%- assign grouped_pages = categorized_pages | group_by: "category" | sort: "items[0].category_order" -%}
+      
+      {%- for group in grouped_pages -%}
+        <li class="sidebar-group">
+          <h4>{{ group.name | replace: '-', ' '}}</h4>
+          <ul>
+            
+            {%- assign items_in_group = group.items | sort: "order" -%}
+            {%- for item in items_in_group -%}
+              <li>
+                <a href="{{ item.url | relative_url }}"
+                   {% if page.url == item.url %}class="active"{% endif %}>
+                  {{ item.title }}
+                </a>
+              </li>
+            {%- endfor -%}
+          </ul>
+        </li>
+      {%- endfor -%}
+
+    </ul>
+  {%- endif -%}
+  
+
+
+</aside>

@@ -1,0 +1,37 @@
+{%- assign section = page.section -%}
+{%- assign collection = site[section] -%}
+
+{%- if collection -%}
+  {%- assign sorted = collection | sort: "order" -%}
+  {%- assign previous = nil -%}
+  {%- assign current_found = false -%}
+  {%- assign next = nil -%}
+
+  {%- for item in sorted -%}
+    {%- if current_found and next == nil -%}
+      {%- assign next = item -%}
+    {%- endif -%}
+
+    {%- if item.url == page.url -%}
+      {%- assign current_found = true -%}
+    {%- endif -%}
+
+    {%- if current_found == false -%}
+      {%- assign previous = item -%}
+    {%- endif -%}
+  {%- endfor -%}
+
+  <nav class="page-navigation">
+    {%- if previous -%}
+      <a class="nav-prev" href="{{ previous.url | relative_url }}">
+        &larr; {{ previous.title }}
+      </a>
+    {%- endif -%}
+
+    {%- if next -%}
+      <a class="nav-next" href="{{ next.url | relative_url }}">
+        {{ next.title }} &rarr;
+      </a>
+    {%- endif -%}
+  </nav>
+{%- endif -%}
