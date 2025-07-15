@@ -1,7 +1,9 @@
 {%- comment -%}
-  A dynamic, reusable sidebar content file for MOBILE.
-  It expects `include.section` to be the name of a collection.
+  A fully automatic sidebar for MOBILE.
+  It groups and sorts based on file/folder names.
+  No "order" or "category_order" front matter is needed.
 {%- endcomment -%}
+
 {%- assign section_name = include.section -%}
 {%- assign collection = site[section_name] -%}
 
@@ -11,8 +13,8 @@
     
     <ul class="mobile-sidebar-nav">
       
-      
-      {%- assign intro_page = collection | where_exp: "item", "item.category == nil" | first -%}
+      {# Find the main intro page (the index.md in the collection's root) #}
+      {%- assign intro_page = collection | where_exp: "item", "item.path contains 'index.md'" | first -%}
       {%- if intro_page -%}
         <li class="mobile-sidebar-intro">
           <a href="{{ intro_page.url | relative_url }}"
@@ -22,16 +24,22 @@
         </li>
       {%- endif -%}
       
+      {# Get all other pages (that are not the main index.md) #}
+      {%- assign categorized_pages = collection | where_exp: "item", "item.path contains 'index.md' == false" -%}
       
-      {%- assign categorized_pages = collection | where_exp: "item", "item.category != nil" -%}
-      {%- assign grouped_pages = categorized_pages | group_by: "category" | sort: "items[0].category_order" -%}
+      {# --- THE NEW LOGIC IS HERE --- #}
+      {# 1. Group pages by their category (from front matter) #}
+      {%- assign grouped_pages = categorized_pages | group_by: "category" -%}
       
-      {%- for group in grouped_pages -%}
+      {# 2. Sort the GROUPS alphabetically by their name. This respects the "01-", "02-" folder names. #}
+      {%- assign sorted_groups = grouped_pages | sort: "name" -%}
+      
+      {%- for group in sorted_groups -%}
         <li class="mobile-sidebar-group">
           <h5>{{ group.name | replace: '-', ' ' | capitalize }}</h5>
           <ul>
-            
-            {%- assign items_in_group = group.items | sort: "order" -%}
+            {# 3. Sort the PAGES WITHIN each group by their full path. This respects "10-", "20-" file names. #}
+            {%- assign items_in_group = group.items | sort: "path" -%}
             {%- for item in items_in_group -%}
               <li>
                 <a href="{{ item.url | relative_url }}"
