@@ -1,19 +1,20 @@
-{%- comment -%}
-  A fully automatic sidebar for MOBILE.
-  It groups and sorts based on file/folder names.
-  No "order" or "category_order" front matter is needed.
-{%- endcomment -%}
+{% comment %}
+  A dynamic and fully automatic sidebar content file for MOBILE.
+  - Sorts categories and pages based on file/folder names.
+  - No "order" or "category_order" front matter is needed.
+  - Uses correct Liquid comment syntax.
+{% endcomment %}
 
 {%- assign section_name = include.section -%}
 {%- assign collection = site[section_name] -%}
 
-{%- if collection -%} 
+{%- if collection -%}
   <div class="mobile-sidebar-content">
     <h4>{{ section_name | replace: '-', ' ' | capitalize }}</h4>
     
     <ul class="mobile-sidebar-nav">
       
-      {# Find the main intro page (the index.md in the collection's root) #}
+      {% comment %} Find the main intro page (the index.md in the collection's root). {% endcomment %}
       {%- assign intro_page = collection | where_exp: "item", "item.path contains 'index.md'" | first -%}
       {%- if intro_page -%}
         <li class="mobile-sidebar-intro">
@@ -24,21 +25,20 @@
         </li>
       {%- endif -%}
       
-      {# Get all other pages (that are not the main index.md) #}
-      {%- assign categorized_pages = collection | where_exp: "item", "item.path contains 'index.md' == false" -%}
+      {% comment %} Get all other pages by excluding the intro page's URL. {% endcomment %}
+      {%- assign categorized_pages = collection | where_not: "url", intro_page.url -%}
       
-      {# --- THE NEW LOGIC IS HERE --- #}
-      {# 1. Group pages by their category (from front matter) #}
+      {% comment %} Group the remaining pages by their category. {% endcomment %}
       {%- assign grouped_pages = categorized_pages | group_by: "category" -%}
       
-      {# 2. Sort the GROUPS alphabetically by their name. This respects the "01-", "02-" folder names. #}
+      {% comment %} Sort the GROUPS alphabetically by their name (respects "01-", "02-"). {% endcomment %}
       {%- assign sorted_groups = grouped_pages | sort: "name" -%}
       
       {%- for group in sorted_groups -%}
         <li class="mobile-sidebar-group">
           <h5>{{ group.name | replace: '-', ' ' | capitalize }}</h5>
           <ul>
-            {# 3. Sort the PAGES WITHIN each group by their full path. This respects "10-", "20-" file names. #}
+            {% comment %} Sort the PAGES within each group by their full path (respects "10-", "20-"). {% endcomment %}
             {%- assign items_in_group = group.items | sort: "path" -%}
             {%- for item in items_in_group -%}
               <li>

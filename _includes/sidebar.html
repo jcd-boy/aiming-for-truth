@@ -1,32 +1,31 @@
-{%- comment -%}
+{% comment %}
   A dynamic and fully automatic sidebar.
-  - Gets custom titles and intros from a data file.
+  - Uses an if/elsif block for custom section titles.
   - Sorts categories and pages based on file/folder names.
   - No "order" or "category_order" front matter is needed.
-{%- endcomment -%}
+{% endcomment %}
 
 {%- assign section_name = include.section -%}
 {%- assign collection = site[section_name] -%}
 
-{# Get the custom data for this section from _data/sections.yml #}
-{%- assign section_data = site.data.sections[section_name] -%}
-
 <aside id="sidebar" class="sidebar">
 
   {%- if collection -%}
-    {# Use the custom title from the data file, or fall back to a generic one #}
-    <h3 class="sidebar-title">
-      {{ section_data.title | default: (section_name | replace: '-', ' ' | capitalize) }}
-    </h3>
 
-    {# Use the custom intro text from the data file if it exists #}
-    {%- if section_data.intro -%}
-      <p class="sidebar-intro">{{ section_data.intro }}</p>
+    {% comment %} Custom titles for each section, as per your original file. {% endcomment %}
+    {%- if section_name == "guide" -%}
+      <h3 class="sidebar-title">The Thinking Guide</h3>
+    {%- elsif section_name == "casestudies" -%}
+      <h3 class="sidebar-title">Selected Case Studies</h3>
+    {%- elsif section_name == "articles" -%}
+      <h3 class="sidebar-title">Collected Articles</h3>
+    {%- else -%}
+      <h3 class="sidebar-title">{{ section_name | replace: '-', ' ' | capitalize }}</h3>
     {%- endif -%}
     
     <ul class="sidebar-nav">
       
-      {# Find the main intro page (the index.md in the collection's root) #}
+      {% comment %} Find the main intro page (the index.md in the collection's root). {% endcomment %}
       {%- assign intro_page = collection | where_exp: "item", "item.path contains 'index.md'" | first -%}
       {%- if intro_page -%}
         <li class="sidebar-group">
@@ -38,17 +37,20 @@
         </li>
       {%- endif -%}
       
-      {# Get all other pages (that are not the main index.md) #}
-      {%- assign categorized_pages = collection | where_exp: "item", "item.path contains 'index.md' == false" -%}
+      {% comment %} Get all other pages by excluding the intro page's URL. {% endcomment %}
+      {%- assign categorized_pages = collection | where_not: "url", intro_page.url -%}
       
-      {# --- THE NEW AUTOMATIC SORTING LOGIC --- #}
+      {% comment %} Group the remaining pages by their category. {% endcomment %}
       {%- assign grouped_pages = categorized_pages | group_by: "category" -%}
+      
+      {% comment %} Sort the GROUPS alphabetically by their name (respects "01-", "02-"). {% endcomment %}
       {%- assign sorted_groups = grouped_pages | sort: "name" -%}
       
       {%- for group in sorted_groups -%}
         <li class="sidebar-group">
           <h4>{{ group.name | replace: '-', ' ' | capitalize }}</h4>
           <ul>
+            {% comment %} Sort the PAGES within each group by their full path (respects "10-", "20-"). {% endcomment %}
             {%- assign items_in_group = group.items | sort: "path" -%}
             {%- for item in items_in_group -%}
               <li>
