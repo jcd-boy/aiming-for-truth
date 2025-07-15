@@ -10,10 +10,10 @@
 
 {%- if collection and collection.size > 1 -%}
 
-  {# Create a stable, sorted "playlist" of all pages by their file path. #}
+  
   {%- assign sorted_playlist = collection | sort: "path" -%}
 
-  {# Find the current page's index in our new playlist. #}
+  
   {%- for item in sorted_playlist -%}
     {%- if item.url == page.url -%}
       {%- assign current_index = forloop.index0 -%}
@@ -21,7 +21,7 @@
     {%- endif -%}
   {%- endfor -%}
   
-  {# Use the index to get the previous and next items directly. #}
+  
   {%- if current_index != nil -%}
     {%- if current_index > 0 -%}
       {%- assign previous_index = current_index | minus: 1 -%}
