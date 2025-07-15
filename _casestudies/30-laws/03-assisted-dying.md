@@ -3,8 +3,6 @@ layout: page
 title: "Assisted Dying"
 subtitle: "Navigating Compassion, Autonomy, and Control at the End of Life"
 category: Laws
-order: 3
-category_order: 2
 ---
 
 # Orbes mentis et inimica ut patriae iacet

@@ -1,9 +1,7 @@
 ---
 layout: page
 title: The Problem of Induction
-order: 3
 category: "Philosophy"
-category_order: 1
 ---
 
 # Tanta dentes infundere avertite esse

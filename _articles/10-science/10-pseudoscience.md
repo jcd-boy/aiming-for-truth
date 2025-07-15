@@ -2,9 +2,7 @@
 layout: page
 title: Pseudoscience
 bg_image: /assets/images/pseudo.jpg
-order: 2
 category: "Science"
-category_order: 0
 ---
 
 # Pariter nam pontus nuntius ipsoque

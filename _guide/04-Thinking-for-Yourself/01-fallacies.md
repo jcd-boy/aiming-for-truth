@@ -2,9 +2,7 @@
 layout: page
 title: "Obstacles Intro"
 subtitle: "Why It's So Hard to Think for Yourself"
-order: 15
 category: "Critical Thinking"
-category_order: 1
 ---
 
 # Quae lustrat caietam procurrunt colitur in deae

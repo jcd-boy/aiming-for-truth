@@ -2,9 +2,7 @@
 layout: page
 title: Ignoring The Science
 bg_image:
-order: 6
 category: "Science"
-category_order: 2
 ---
 
 # Placet vires Tum soror superas monebat furit

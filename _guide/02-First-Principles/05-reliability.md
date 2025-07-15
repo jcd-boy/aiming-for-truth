@@ -2,9 +2,7 @@
 layout: page
 title: "Reliability"
 subtitle: "Using the Evidence-Based Scientific Method"
-order: 7
 category: "First Principles"
-category_order: 5
 ---
 
 # Volvens in veniat requirit quamvis hoc ut

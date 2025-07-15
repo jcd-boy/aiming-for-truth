@@ -1,10 +1,8 @@
 ---
 layout: page
-title: "The Clean Slate Challenge"
+title: "A Big Challenge"
 subtitle: "Starting with a fresh perspective"
-order: 1
 category: "Clean Slate"
-category_order: 0
 bg_image: 
 ---
 

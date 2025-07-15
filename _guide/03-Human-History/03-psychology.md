@@ -2,9 +2,7 @@
 layout: page
 title: "Mind and Behaviour"
 subtitle: "What Would the “Clean Slate” Scientific Study of Psychology Be?"
-order: 11
 category: "Human History"
-category_order: 3
 ---
 
 # Hunc resupinus collo et ovantem hederarum tardo

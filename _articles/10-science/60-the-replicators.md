@@ -3,9 +3,7 @@ layout: page
 title: The Replicators
 subtitle: The Purpose of Organisms
 bg_image:
-order: 9
 category: "Science"
-category_order: 5
 ---
 
 # Pylos saevus in solque et utinam ferrum

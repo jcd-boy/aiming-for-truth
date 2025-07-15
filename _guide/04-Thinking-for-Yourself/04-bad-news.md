@@ -2,9 +2,7 @@
 layout: page
 title: "Version ONE"
 subtitle: 'A brief introduction to critical thinking'
-order: 18
 category: "Critical Thinking"
-category_order: 4
 ---
 
 # Tenebras erit et est saecula clamant

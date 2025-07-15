@@ -2,9 +2,7 @@
 layout: page
 title: The Scientific Method
 bg_image:
-order: 8
 category: "Science"
-category_order: 4
 ---
 
 # Non satis trepidos

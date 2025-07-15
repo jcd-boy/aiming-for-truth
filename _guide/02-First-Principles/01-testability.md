@@ -2,9 +2,7 @@
 layout: page
 title: "Testability"
 subtitle: "If it can't be tested, it can't be trusted!"
-order: 3
 category: "First Principles"
-category_order: 1
 ---
 
 # Inclinata recepit

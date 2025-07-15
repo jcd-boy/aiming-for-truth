@@ -2,9 +2,7 @@
 layout: page
 title: "First Principles"
 subtitle: "Laying the foundation on which to build a better worldview"
-order: 2
 category: "First Principles"
-category_order: 0
 ---
 
 # Protinus tolerare alius tremor

@@ -1,8 +1,7 @@
 {% comment %}
-  A dynamic and fully automatic sidebar.
-  - Uses an if/elsif block for custom section titles.
-  - Sorts categories and pages based on file/folder names.
-  - No "order" or "category_order" front matter is needed.
+  Definitive Sidebar Logic v6
+  - Guarantees Introduction is always first.
+  - Correctly sorts all other groups by path.
 {% endcomment %}
 
 {%- assign section_name = include.section -%}
@@ -11,8 +10,6 @@
 <aside id="sidebar" class="sidebar">
 
   {%- if collection -%}
-
-    {% comment %} Custom titles for each section, as per your original file. {% endcomment %}
     {%- if section_name == "guide" -%}
       <h3 class="sidebar-title">The Thinking Guide</h3>
     {%- elsif section_name == "casestudies" -%}
@@ -22,48 +19,56 @@
     {%- else -%}
       <h3 class="sidebar-title">{{ section_name | replace: '-', ' ' | capitalize }}</h3>
     {%- endif -%}
-    
+
     <ul class="sidebar-nav">
-      
-      {% comment %} Find the main intro page (the index.md in the collection's root). {% endcomment %}
-      {%- assign intro_page = collection | where_exp: "item", "item.path contains 'index.md'" | first -%}
+      {% comment %}
+        PART 1: Find and display the Introduction link FIRST.
+      {% endcomment %}
+      {%- assign intro_page = collection | where_exp: "item", "item.category == nil" | first -%}
       {%- if intro_page -%}
         <li class="sidebar-group">
           <h4>Introduction</h4>
-          <a href="{{ intro_page.url | relative_url }}"
-             {% if page.url == intro_page.url %}class="active"{% endif %}>
-            {{ intro_page.title }}
-          </a>
-        </li>
-      {%- endif -%}
-      
-      {% comment %} Get all other pages by excluding the intro page's URL. {% endcomment %}
-      {%- assign categorized_pages = collection | where_not: "url", intro_page.url -%}
-      
-      {% comment %} Group the remaining pages by their category. {% endcomment %}
-      {%- assign grouped_pages = categorized_pages | group_by: "category" -%}
-      
-      {% comment %} Sort the GROUPS alphabetically by their name (respects "01-", "02-"). {% endcomment %}
-      {%- assign sorted_groups = grouped_pages | sort: "name" -%}
-      
-      {%- for group in sorted_groups -%}
-        <li class="sidebar-group">
-          <h4>{{ group.name | replace: '-', ' ' | capitalize }}</h4>
           <ul>
-            {% comment %} Sort the PAGES within each group by their full path (respects "10-", "20-"). {% endcomment %}
-            {%- assign items_in_group = group.items | sort: "path" -%}
-            {%- for item in items_in_group -%}
-              <li>
-                <a href="{{ item.url | relative_url }}"
-                   {% if page.url == item.url %}class="active"{% endif %}>
-                  {{ item.title }}
-                </a>
-              </li>
-            {%- endfor -%}
+            <li>
+              <a href="{{ intro_page.url | relative_url }}"
+                 {% if page.url == intro_page.url %}class="active"{% endif %}>
+                {{ intro_page.title }}
+              </a>
+            </li>
           </ul>
         </li>
-      {%- endfor -%}
+      {%- endif -%}
 
+      {% comment %}
+        PART 2: Process all OTHER pages.
+        First, get a list of all categorized pages and sort them by path.
+      {% endcomment %}
+      {%- assign categorized_pages = collection | where_exp: "item", "item.category != nil" | sort: "path" -%}
+      
+      {%- assign current_category = "" -%}
+      {%- for item in categorized_pages -%}
+        {%- if item.category != current_category -%}
+          {%- if current_category != "" -%}
+            </ul></li>
+          {%- endif -%}
+          <li class="sidebar-group">
+            <h4>{{ item.category }}</h4>
+            <ul>
+          {%- assign current_category = item.category -%}
+        {%- endif -%}
+
+        <li>
+          <a href="{{ item.url | relative_url }}"
+             {% if page.url == item.url %}class="active"{% endif %}>
+            {{ item.title }}
+          </a>
+        </li>
+      {%- endfor -%}
+      
+      {% comment %} Close the final ul/li for the last category group. {% endcomment %}
+      {%- if categorized_pages.size > 0 -%}
+        </ul></li>
+      {%- endif -%}
     </ul>
   {%- endif -%}
 </aside>

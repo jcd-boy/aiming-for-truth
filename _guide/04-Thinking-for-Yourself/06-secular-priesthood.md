@@ -2,9 +2,7 @@
 layout: page
 title: "Version THREE"
 subtitle: 'A brief introduction to critical thinking'
-order: 20
 category: "Critical Thinking"
-category_order: 6
 ---
 
 # Vestibus fama inficit sua prece inmensum coetusque

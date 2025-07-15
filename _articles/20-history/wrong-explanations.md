@@ -2,9 +2,7 @@
 layout: page
 title: Wrong Explanations
 bg_image: 
-order: 4
 category: "History"
-category_order: 0
 ---
 
 # Quoque hinc

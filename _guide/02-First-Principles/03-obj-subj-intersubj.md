@@ -2,9 +2,7 @@
 layout: page
 title: "Is it Objective?"
 subtitle: "Recognizing the difference: Objective, Subjective and Intersubjective"
-order: 5
 category: "First Principles"
-category_order: 3
 ---
 
 # Ancipitemque fuit bellator dura pervenit Caenea

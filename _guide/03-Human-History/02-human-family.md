@@ -2,9 +2,7 @@
 layout: page
 title: "The Human Family"
 subtitle: "What Would Be Our “Clean Slate” Idea of the Best Way to Live?"
-order: 10
 category: "Human History"
-category_order: 2
 ---
 
 # Caesa praebebant arva

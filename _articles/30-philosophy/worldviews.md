@@ -1,9 +1,7 @@
 ---
 layout: page
 title: Worldviews
-order: 1
 category: "Philosophy"
-category_order: 0
 ---
 
 # Viderat aurea

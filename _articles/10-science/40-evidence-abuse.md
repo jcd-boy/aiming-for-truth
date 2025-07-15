@@ -2,9 +2,7 @@
 layout: page
 title: Forms of Evidence Abuse
 bg_image:
-order: 7
 category: "Science"
-category_order: 3
 ---
 
 # Ut et umoris incendia nefas Ericthonium ille

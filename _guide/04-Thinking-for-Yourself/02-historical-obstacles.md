@@ -2,9 +2,7 @@
 layout: page
 title: "Title"
 subtitle: 'A brief introduction to critical thinking'
-order: 16
 category: "Critical Thinking"
-category_order: 2
 ---
 
 # Sub epulas alimenta mercurio remansit nigram

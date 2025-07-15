@@ -2,9 +2,7 @@
 layout: page
 title: "Evolution"
 subtitle: "Rethinking Human History: A Wider Perspective"
-order: 9
 category: "Human History"
-category_order: 1
 ---
 
 # Accensa et munus laborem passu castris et

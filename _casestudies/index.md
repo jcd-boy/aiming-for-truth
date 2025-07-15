@@ -2,7 +2,6 @@
 layout: page
 title: "Applying the Thinking Guide"
 subtitle: "Case Studies: Real World Examples"
-order: 0
 ---
 
 The purpose of this section is to show how the principles outlined in the Thinking Guide of the website can be applied to real-world social, political and contemporary issues — issues that are often messy, emotional, and full of competing claims.

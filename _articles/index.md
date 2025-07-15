@@ -1,7 +1,6 @@
 ---
 layout: page
 title: "Asides and Tangents"
-order: 0
 ---
 
 This website is written for curious minds of all backgrounds, not just academics or experts. That means I’ve kept the main pages as clear, straightforward, and jargon-free as possible. Big words and complex ideas aren’t avoided because they’re bad — but because the goal here is understanding and accessibility.

@@ -2,7 +2,6 @@
 layout: page
 title: "Whose Worldview?"
 subtitle: "Did you choose your worldview?"
-order: 0
 bg_image: /assets/images/south-viewBG.webp
 ---
 

@@ -2,9 +2,7 @@
 layout: page
 title: "Natural vs. Normal"
 subtitle: "Rethinking Human History"
-order: 8
 category: "Human History"
-category_order: 0
 ---
 
 # Pavetque undis Phoebum undas perquirere decipit ultro

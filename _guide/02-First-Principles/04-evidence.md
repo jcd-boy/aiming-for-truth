@@ -2,9 +2,7 @@
 layout: page
 title: "Evidence"
 subtitle: "Only the Evidence Matters!"
-order: 6
 category: "First Principles"
-category_order: 4
 ---
 
 # Eadem non timor patri erili huic et

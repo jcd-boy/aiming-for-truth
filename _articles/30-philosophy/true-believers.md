@@ -2,9 +2,7 @@
 layout: page
 title: True Believers
 bg_image: /assets/images/true-belief.jpg
-order: 20
 category: "Philosophy"
-category_order: 2
 ---
 
 # Sanet suco

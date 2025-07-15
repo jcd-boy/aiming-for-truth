@@ -2,9 +2,7 @@
 layout: page
 title: "The Law is an Ass"
 subtitle: 'What Would Our “Clean Slate” Laws Look Like?'
-order: 12
 category: "Human History"
-category_order: 4
 ---
 
 # Domus exierat

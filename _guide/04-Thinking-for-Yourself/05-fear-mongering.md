@@ -2,9 +2,7 @@
 layout: page
 title: "Version TWO"
 subtitle: 'A brief introduction to critical thinking'
-order: 19
 category: "Critical Thinking"
-category_order: 5
 ---
 
 # Formosior vestibus vesci et pestis vigoris

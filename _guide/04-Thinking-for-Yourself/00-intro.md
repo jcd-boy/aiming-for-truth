@@ -2,9 +2,7 @@
 layout: page
 title: "Introduction"
 subtitle: 'A brief introduction to critical thinking'
-order: 14
 category: "Critical Thinking"
-category_order: 0
 ---
 
 # Ignes aera Cyclopis

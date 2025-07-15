@@ -2,9 +2,7 @@
 layout: page
 title: "Therapy Culture"
 subtitle: 'What would our "Clean Slate" approach to Wellbeing, Therapy, Rehabilitation, and Punishment be?'
-order: 13
 category: "Human History"
-category_order: 5
 ---
 
 # Fui exosa mali fluctibus

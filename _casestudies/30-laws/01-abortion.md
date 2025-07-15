@@ -3,8 +3,6 @@ layout: page
 title: "Abortion"
 subtitle: "What happens in the real world when abortion is legal—or banned?"
 category: Laws
-order: 1
-category_order: 0
 ---
 
 # In cognatas alma

@@ -2,9 +2,7 @@
 layout: page
 title: The Two Cultures
 bg_image:
-order: 5
 category: "Science"
-category_order: 1
 ---
 
 # Et opus felicisque

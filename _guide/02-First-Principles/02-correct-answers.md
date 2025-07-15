@@ -2,9 +2,7 @@
 layout: page
 title: "Correct Answers"
 subtitle: "There ARE Correct Answers (but only to objective questions)"
-order: 4
 category: "First Principles"
-category_order: 2
 ---
 
 # Humo precibus tradendum vomeribus iusto liquidarum guttura

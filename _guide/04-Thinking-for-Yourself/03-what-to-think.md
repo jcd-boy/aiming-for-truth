@@ -2,9 +2,7 @@
 layout: page
 title: "Waiting"
 subtitle: 'A brief introduction to critical thinking'
-order: 17
 category: "Critical Thinking"
-category_order: 3
 ---
 
 # Oscula nec dictas

@@ -1,8 +1,8 @@
 {% comment %}
-  A dynamic and fully automatic sidebar content file for MOBILE.
-  - Sorts categories and pages based on file/folder names.
-  - No "order" or "category_order" front matter is needed.
-  - Uses correct Liquid comment syntax.
+  Definitive Mobile Sidebar Logic
+  - Mirrors the final, working logic from the desktop sidebar.
+  - Guarantees Introduction is always first.
+  - Correctly sorts all other groups by path.
 {% endcomment %}
 
 {%- assign section_name = include.section -%}
@@ -14,8 +14,10 @@
     
     <ul class="mobile-sidebar-nav">
       
-      {% comment %} Find the main intro page (the index.md in the collection's root). {% endcomment %}
-      {%- assign intro_page = collection | where_exp: "item", "item.path contains 'index.md'" | first -%}
+      {% comment %}
+        PART 1: Find and display the Introduction link FIRST.
+      {% endcomment %}
+      {%- assign intro_page = collection | where_exp: "item", "item.category == nil" | first -%}
       {%- if intro_page -%}
         <li class="mobile-sidebar-intro">
           <a href="{{ intro_page.url | relative_url }}"
@@ -24,34 +26,37 @@
           </a>
         </li>
       {%- endif -%}
+
+      {% comment %}
+        PART 2: Process all OTHER pages.
+        First, get a list of all categorized pages and sort them by path.
+      {% endcomment %}
+      {%- assign categorized_pages = collection | where_exp: "item", "item.category != nil" | sort: "path" -%}
       
-      {% comment %} Get all other pages by excluding the intro page's URL. {% endcomment %}
-      {%- assign categorized_pages = collection | where_not: "url", intro_page.url -%}
-      
-      {% comment %} Group the remaining pages by their category. {% endcomment %}
-      {%- assign grouped_pages = categorized_pages | group_by: "category" -%}
-      
-      {% comment %} Sort the GROUPS alphabetically by their name (respects "01-", "02-"). {% endcomment %}
-      {%- assign sorted_groups = grouped_pages | sort: "name" -%}
-      
-      {%- for group in sorted_groups -%}
-        <li class="mobile-sidebar-group">
-          <h5>{{ group.name | replace: '-', ' ' | capitalize }}</h5>
-          <ul>
-            {% comment %} Sort the PAGES within each group by their full path (respects "10-", "20-"). {% endcomment %}
-            {%- assign items_in_group = group.items | sort: "path" -%}
-            {%- for item in items_in_group -%}
-              <li>
-                <a href="{{ item.url | relative_url }}"
-                   {% if page.url == item.url %}class="active"{% endif %}>
-                  {{ item.title }}
-                </a>
-              </li>
-            {%- endfor -%}
-          </ul>
+      {%- assign current_category = "" -%}
+      {%- for item in categorized_pages -%}
+        {%- if item.category != current_category -%}
+          {%- if current_category != "" -%}
+            </ul></li>
+          {%- endif -%}
+          <li class="mobile-sidebar-group">
+            <h5>{{ item.category | replace: '-', ' ' | capitalize }}</h5>
+            <ul>
+          {%- assign current_category = item.category -%}
+        {%- endif -%}
+
+        <li>
+          <a href="{{ item.url | relative_url }}"
+             {% if page.url == item.url %}class="active"{% endif %}>
+            {{ item.title }}
+          </a>
         </li>
       {%- endfor -%}
-
+      
+      {% comment %} Close the final ul/li for the last category group. {% endcomment %}
+      {%- if categorized_pages.size > 0 -%}
+        </ul></li>
+      {%- endif -%}
     </ul>
   </div>
 {%- endif -%}
